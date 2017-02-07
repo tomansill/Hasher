@@ -1,8 +1,14 @@
+/** Global Timer variable */
 var timer = null;
+/** Global time variable - holds system time in milliseconds */
 var time = null;
+/** Global length selection variable */
 var length = null;
+/** Global salt selection variable */
 var salt = null;
+/** Global character case selection variable */
 var ccase = null;
+/** Constant value for time limit for password display */
 var TIME_LIMIT = 30; // 30 seconds
 
 /** Fires when page is fully loaded */
@@ -39,9 +45,9 @@ function hash(){
 
     // Compute the hash
 	var hash = "";
-    if(!salt) hash = hex_sha256(input);
+    if(!salt) hash = hex_sha256(input); // Normal hash
     else{
-        hash = hex_sha256(input);
+        hash = hex_sha256(input); // hash = sha256(length + sha256(input) + length + input);
         hash = hex_sha256(input.length + hash + input.length + input);
     }
 
@@ -65,13 +71,13 @@ function redisplay_hash(){
     display_hash(hash);
 }
 
+/** Function to keep track of timer */
 function timer_function(){
 	// Clear timer if any
 	if(timer != null) window.clearTimeout(timer);
 
 	// Check timer
 	var time_left = Math.floor(((new Date().getTime()) - time)/1000);
-	console.log(time_left);
 
 	// Update the counter
 	var counter = document.getElementById("counter");
@@ -79,6 +85,8 @@ function timer_function(){
 
 	// Begin the timer
 	if(time_left <= TIME_LIMIT) timer = window.setTimeout(timer_function, 1000);
+
+	// If the time is up, clear the counter
 	else{
 		counter.innerHTML = "-";
 		var output = document.getElementById("output");
@@ -128,6 +136,9 @@ function alternate(string){
     return str;
 }
 
+/** Function to select the length of password digest 
+ *	@param number Desired length in integer - only 8, 16, 32, and 64 is accepted, if otherwise, 64 is selected as default
+ */
 function select_length(number){
 	// Remove previous selection if any
 	if(length != null){
@@ -138,13 +149,16 @@ function select_length(number){
 	// Select
 	if(number != null && (number == 8 || number == 16 || number == 32 || number == 64)){
 		length = number;
-	}else length = 32; // 32 is a default length
+	}else length = 64; // 64 is a default length
 
 	// Apply the selection class
 	var selected = document.getElementById("length" + length);
 	if(selected != null && "classList" in selected) selected.classList.add("active");
 }
 
+/** Function to select the option of salting 
+ *	@param enabled False to disable salting, otherwise True (True is the default option) 
+ */
 function select_salt(enabled){
 	// Remove previous selection if any
 	if(salt != null){
@@ -161,6 +175,12 @@ function select_salt(enabled){
 	if(selected != null && "classList" in selected) selected.classList.add("active");
 }
 
+/** Function to select the option of character case 
+ *	@param option in character - 'A' to choose "Alternating case" where first alphabet letter is uppercased first then case is alternated for every alphabet number
+ *		'L' to choose lowercase 
+ *		'U' to choose uppercase
+ *		Alternating is the default option
+ */
 function select_case(option){
 	// Remove previous selection if any
 	if(ccase != null){
