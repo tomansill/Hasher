@@ -6,6 +6,9 @@ A complete client-side SHA256 password hashing utility with basic salting. No se
 
 This application is useful for securing various online accounts where their password handling policies may be insecure or non-existent. You just type the desired password for your account password, then click on the Hash! button to get the hashed password and you use that hash digest as a password that you use to log into your online account.
 
+# Usage
+Use the hasher.html in /inline_min in your web server or simply store it in your computer and open it with a HTML5+CSS3 and JavaScript capable browser like Google Chrome, Mozilla Firefox, or similar. JavaScript is required for this application to work. 
+
 # Implementation
 Hasher uses jsSHA2, the JavaScript implementation of SHA256. http://anmar.eu.org/projects/jssha2/
 
