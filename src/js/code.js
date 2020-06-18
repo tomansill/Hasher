@@ -10,11 +10,22 @@ var salt = null;
 var ccase = null;
 /** Constant value for time limit for password display */
 var TIME_LIMIT = 30; // 30 seconds
+/** Global output variable */
+var output_hash = null;
 
 /** Fires when page is fully loaded */
 document.addEventListener("DOMContentLoaded", function(event){
+
 	// Reveal the application if JavaScript is working
 	document.getElementById("application").removeAttribute("hidden");
+
+    // Automatically clear output (if browser was closed before output expires, it'll show up on next launch and will not clear by itself) 
+    var output = document.getElementById("output");
+    if(output != null && "value" in output) output.value = "";
+
+    // Automatically clear input too
+    var input = document.getElementById("input");
+    if(input != null && "value" in input) input.value = "";
 
 	// Enter in the input fires the hash! button
 	document.getElementById("input").addEventListener("keyup", function(event){
@@ -31,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 /** The main function that fires after "Hash!" button is clicked */
 function hash(){
+
     // Retrieve information
     var input = document.getElementById("input").value;
 
@@ -51,18 +63,22 @@ function hash(){
         hash = hex_sha256(input.length + hash + input.length + input);
     }
 
+    // Put in global variable
+    output_hash = hash;
+
 	// Apply the length and show it
-	display_hash(hash.substring(0, length));
+	display_hash(output_hash);
 }
 
 /** Function that fires when any one of the Lowercase radio buttons are clicked. */
 function redisplay_hash(){
+
     // Get output
     var hash = document.getElementById("output")
 
     // Do nothing if something broke
     if(hash == null || !("value" in hash)) return;
-    hash = hash.value;
+    hash = output_hash;
 
 	// Do nothing if the output field is empty
     if(hash == null || hash == "") return;
@@ -73,6 +89,7 @@ function redisplay_hash(){
 
 /** Function to keep track of timer */
 function timer_function(){
+
 	// Clear timer if any
 	if(timer != null) window.clearTimeout(timer);
 
@@ -89,6 +106,7 @@ function timer_function(){
 	// If the time is up, clear the counter
 	else{
 		counter.innerHTML = "-";
+        output_hash = null;
 		var output = document.getElementById("output");
 		if(output != null && "value" in output) output.value = "";
 	}
@@ -98,6 +116,10 @@ function timer_function(){
  *  @param hash input text
  */
 function display_hash(hash){
+
+    // Trim
+    hash = hash.substring(0, length);
+
     // Output
     if(ccase == "L") document.getElementById("output").value = hash.toLowerCase();
     else if(ccase == "U") document.getElementById("output").value = hash.toUpperCase();
@@ -113,12 +135,14 @@ function display_hash(hash){
  *  @return modified string
  */
 function alternate(string){
+
     // Initial variables
     var upper = true;
     var str = "";
 
     // Iterate through the string
     for(var i = 0; i < string.length; i++){
+
         // Extract a character from string
         var character = String.fromCharCode(string.charCodeAt(i));
 
@@ -140,6 +164,7 @@ function alternate(string){
  *	@param number Desired length in integer - only 8, 16, 32, and 64 is accepted, if otherwise, 64 is selected as default
  */
 function select_length(number){
+
 	// Remove previous selection if any
 	if(length != null){
 		var prev = document.getElementById("length" + length);
@@ -154,12 +179,16 @@ function select_length(number){
 	// Apply the selection class
 	var selected = document.getElementById("length" + length);
 	if(selected != null && "classList" in selected) selected.classList.add("active");
+
+	// Redisplay hash
+	redisplay_hash();
 }
 
 /** Function to select the option of salting 
  *	@param enabled False to disable salting, otherwise True (True is the default option) 
  */
 function select_salt(enabled){
+
 	// Remove previous selection if any
 	if(salt != null){
 		var prev = document.getElementById("salt" + (salt ? "Y" : "N"));
@@ -182,6 +211,7 @@ function select_salt(enabled){
  *		Alternating is the default option
  */
 function select_case(option){
+
 	// Remove previous selection if any
 	if(ccase != null){
 		var prev = document.getElementById("case" + ccase);
