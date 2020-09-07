@@ -13,6 +13,12 @@ var TIME_LIMIT = 30; // 30 seconds
 /** Global output variable */
 var output_hash = null;
 
+// Automatically clear output (if browser was closed before output expires, it'll show up on next launch and will not clear by itself) 
+window.onload = function() {
+    var output = document.getElementById("output");
+    if(output != null && "value" in output) output.value = "";
+};
+
 /** Fires when page is fully loaded */
 document.addEventListener("DOMContentLoaded", function(event){
 

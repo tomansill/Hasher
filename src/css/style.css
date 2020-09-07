@@ -638,4 +638,7 @@ ul ul {
       border-color: #ebccd1;
       color: #a94442;
     }
+    .list-group-item {
+      color: black;
+    }
 }
