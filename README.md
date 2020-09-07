@@ -3,6 +3,12 @@ Simple client-side password hashing utility
 
 # Updates
 
+## 2020-09-06
+- Fixed the issue where output value will persist when browser closes and reopens
+- Fixed styling issue with light mode
+- Added [Github Corners](https://github.com/tholman/github-corners) (Credit to [Tim Holman](https://github.com/tholman))
+- The update has increased the size of the page from 14.4 KB to 17.1 KB
+
 ## 2020-06-18
 - Default Dark Mode! (Original "light mode" theme can be used if users' `prefers-color-scheme` is set to `light`)
 - Fixed the issue where output value will persist when browser closes and reopens
