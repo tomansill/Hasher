@@ -7,7 +7,7 @@ Simple client-side password hashing utility
 - Fixed the issue where output value will persist when browser closes and reopens
 - Fixed styling issue with light mode
 - Added [Github Corners](https://github.com/tholman/github-corners) (Credit to [Tim Holman](https://github.com/tholman))
-- The update has increased the size of the page from 14.4 KB to 17.1 KB
+- The update has increased the size of the page from 17.1 KB to 18.9 KB
 
 ## 2020-06-18
 - Default Dark Mode! (Original "light mode" theme can be used if users' `prefers-color-scheme` is set to `light`)
@@ -26,4 +26,4 @@ Use the hasher.html in /inline_min in your web server or simply store it in your
 # Implementation
 Hasher uses jsSHA2, the JavaScript implementation of SHA256. http://anmar.eu.org/projects/jssha2/
 
-This page runs on inline minified JavaScript code combined with sha256.js. This page uses a heavily stripped-down version of Twitter's Bootstrap V3 to reduce the page size and improve the page loading speed. The size of this page is only ~~14.4 KB~~ 17.1 KB!
+This page runs on inline minified JavaScript code combined with sha256.js. This page uses a heavily stripped-down version of Twitter's Bootstrap V3 to reduce the page size and improve the page loading speed. The size of this page is only 18.9 KB!
