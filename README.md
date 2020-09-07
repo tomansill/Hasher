@@ -3,6 +3,10 @@ Simple client-side password hashing utility
 
 # Updates
 
+## 2020-09-07
+- Added an invisible favicon to stop the browser from requesting for favicon
+- The update has increased the size of the page from 18.9 KB to 19 KB
+
 ## 2020-09-06
 - Fixed the issue where output value will persist when browser closes and reopens
 - Fixed styling issue with light mode
@@ -26,4 +30,4 @@ Use the hasher.html in /inline_min in your web server or simply store it in your
 # Implementation
 Hasher uses jsSHA2, the JavaScript implementation of SHA256. http://anmar.eu.org/projects/jssha2/
 
-This page runs on inline minified JavaScript code combined with sha256.js. This page uses a heavily stripped-down version of Twitter's Bootstrap V3 to reduce the page size and improve the page loading speed. The size of this page is only 18.9 KB!
+This page runs on inline minified JavaScript code combined with sha256.js. This page uses a heavily stripped-down version of Twitter's Bootstrap V3 to reduce the page size and improve the page loading speed. The size of this page is only 19 KB!
